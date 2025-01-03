@@ -1,18 +1,48 @@
 package com.ritik.dreamshop.service.product;
 
 import com.ritik.dreamshop.exception.ProductNotFoundException;
+import com.ritik.dreamshop.model.Category;
 import com.ritik.dreamshop.model.Product;
+import com.ritik.dreamshop.repository.category.CategoryRepository;
 import com.ritik.dreamshop.repository.product.ProductRepository;
+import com.ritik.dreamshop.request.AddProductRequest;
+import com.ritik.dreamshop.request.UpdateProductRequest;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
+@Service
+@RequiredArgsConstructor  // used for constructor injection, dependency to be injected should be final and non-static
 public class ProductService implements IProductService {
 
-    private ProductRepository productRepository;
+    private final CategoryRepository categoryRepository;
+    private final ProductRepository productRepository;
+
+
 
     @Override
-    public Product addProduct(Product product) {
-        return null;
+    public Product addProduct(AddProductRequest request) {
+        Category category = Optional.ofNullable(categoryRepository.findByName(request.getCategory().getName()))
+                .orElseGet(() -> {
+                    Category newCategory = new Category(request.getCategory().getName());
+                    return categoryRepository.save(newCategory);
+                });
+        request.setCategory(category);
+        return productRepository.save(createProduct(request, category));
+    }
+
+    private Product createProduct(AddProductRequest request, Category category){
+        return new Product(
+                request.getName(),
+                request.getBrand(),
+                request.getPrice(),
+                request.getInventory(),
+                request.getDescription(),
+                category
+        );
     }
 
     @Override
@@ -32,7 +62,24 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public void updateProduct(Product product, Long id) {
+    public Product updateProduct(UpdateProductRequest request, Long id) {
+        return productRepository.findById(id)
+                .map(existingProduct ->updateExistingProduct(existingProduct, request) )
+                .map(productRepository :: save)
+                .orElseThrow(() -> new ProductNotFoundException("Product not found"));
+    }
+
+    private Product updateExistingProduct(Product existingProduct, UpdateProductRequest request){
+        existingProduct.setName(request.getName());
+        existingProduct.setBrand(request.getBrand());
+        existingProduct.setPrice(request.getPrice());
+        existingProduct.setDescription(request.getDescription());
+        existingProduct.setInventory(request.getInventory());
+
+
+        Category category = categoryRepository.findByName(request.getCategory().getName());
+        existingProduct.setCategory(category);
+        return existingProduct;
 
     }
 
