@@ -108,7 +108,7 @@ public class ProductController {
                 return ResponseEntity.ok(new ApiResponse("No products found", null));
             }
             return ResponseEntity.ok(new ApiResponse("Success", products));
-        } catch( ResourceNotFoundException e ){
+        } catch( Exception e ){
             return ResponseEntity.status(NOT_FOUND).body(new ApiResponse("Error: " + e.getMessage(), null));
         }
     }
@@ -121,7 +121,7 @@ public class ProductController {
                 return ResponseEntity.ok(new ApiResponse("No products found", null));
             }
             return ResponseEntity.ok(new ApiResponse("Success", products));
-        } catch( ResourceNotFoundException e ){
+        } catch( Exception e ){
             return ResponseEntity.status(NOT_FOUND).body(new ApiResponse("Error: " + e.getMessage(), null));
         }
     }
@@ -134,13 +134,20 @@ public class ProductController {
                 return ResponseEntity.ok(new ApiResponse("No products found", null));
             }
             return ResponseEntity.ok(new ApiResponse("Success", products));
-        } catch( ResourceNotFoundException e ){
+        } catch( Exception e ){
             return ResponseEntity.status(NOT_FOUND).body(new ApiResponse("Error: " + e.getMessage(), null));
         }
     }
 
-
-
+    @GetMapping("/product/count/by-brand/and-name")
+    public ResponseEntity<ApiResponse> countProductByBrandAndName(@RequestParam String brand, @RequestParam String name){
+        try{
+            var productCount = productService.countProductsByBrandAndName(brand, name);
+            return ResponseEntity.ok(new ApiResponse("Success", productCount));
+        } catch (Exception e){
+            return ResponseEntity.ok(new ApiResponse("Error: " + e.getMessage(), null));
+        }
+    }
 
 
 
