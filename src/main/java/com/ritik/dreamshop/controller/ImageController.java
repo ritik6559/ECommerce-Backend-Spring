@@ -77,7 +77,7 @@ public class ImageController {
         } catch (Exception e){
             return ResponseEntity.status(NOT_FOUND).body(new ApiResponse(e.getMessage(), NOT_FOUND));
         }
-        return ResponseEntity.status(INTERNAL_SERVER_ERROR).body( new ApiResponse("Delete Failed!", INTERNAL_SERVER_ERROR));
+        return ResponseEntity.status(INTERNAL_SERVER_ERROR).body( new ApiResponse("Delete Failed!", INTERNAL_SERVER_ERROR) );
     }
 
 
