@@ -1,6 +1,6 @@
 package com.ritik.dreamshop.service.product;
 
-import com.ritik.dreamshop.exception.ProductNotFoundException;
+import com.ritik.dreamshop.exception.ResourceNotFoundException;
 import com.ritik.dreamshop.model.Category;
 import com.ritik.dreamshop.model.Product;
 import com.ritik.dreamshop.repository.category.CategoryRepository;
@@ -8,7 +8,6 @@ import com.ritik.dreamshop.repository.product.ProductRepository;
 import com.ritik.dreamshop.request.AddProductRequest;
 import com.ritik.dreamshop.request.UpdateProductRequest;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -48,7 +47,7 @@ public class ProductService implements IProductService {
     @Override
     public Product getProductById(Long id) {
         return productRepository.findById(id)
-                .orElseThrow(() -> new ProductNotFoundException("Product not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Product not found"));
     }
 
     @Override
@@ -56,7 +55,7 @@ public class ProductService implements IProductService {
         productRepository.findById(id)
                 .ifPresentOrElse(productRepository::delete,
                         () -> {
-                        throw new ProductNotFoundException("Product not found");
+                        throw new ResourceNotFoundException("Product not found");
                     }
                 );
     }
@@ -66,7 +65,7 @@ public class ProductService implements IProductService {
         return productRepository.findById(id)
                 .map(existingProduct ->updateExistingProduct(existingProduct, request) )
                 .map(productRepository :: save)
-                .orElseThrow(() -> new ProductNotFoundException("Product not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Product not found"));
     }
 
     private Product updateExistingProduct(Product existingProduct, UpdateProductRequest request){
