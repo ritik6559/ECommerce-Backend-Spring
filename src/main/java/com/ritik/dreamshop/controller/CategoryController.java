@@ -2,6 +2,7 @@ package com.ritik.dreamshop.controller;
 
 
 import com.ritik.dreamshop.exception.AlreadyExistsException;
+import com.ritik.dreamshop.exception.ResourceNotFoundException;
 import com.ritik.dreamshop.model.Category;
 import com.ritik.dreamshop.response.ApiResponse;
 import com.ritik.dreamshop.service.category.ICategoryService;
@@ -39,19 +40,45 @@ public class CategoryController {
         }
     }
 
-    @GetMapping("")
+    @GetMapping("/category/{id}/category")
     public ResponseEntity<ApiResponse> getCategoryById(@PathVariable Long id){
         try{
             Category category = categoryService.getCategoryById(id);
             return ResponseEntity.ok().body(new ApiResponse("Found", category));
-        } catch (Exception e){
+        } catch (ResourceNotFoundException e){
             return ResponseEntity.status(NOT_FOUND).body(new ApiResponse("Error: " + e.getMessage(), null));
         }
     }
 
+    @GetMapping("/{name}/category")
+    public ResponseEntity<ApiResponse> getCategoryByName(@PathVariable String name){
+        try{
+            Category category = categoryService.getCategoryByName(name);
+            return ResponseEntity.ok().body(new ApiResponse("Found", category));
+        } catch (ResourceNotFoundException e){
+            return ResponseEntity.status(NOT_FOUND).body(new ApiResponse("Error: " + e.getMessage(), null));
+        }
+    }
 
+    @DeleteMapping("/category/{id}/delete")
+    public ResponseEntity<ApiResponse> deleteCategory(@PathVariable Long id){
+        try{
+            categoryService.deleteCategoryById(id);
+            return ResponseEntity.ok().body(new ApiResponse("Found", null));
+        } catch (ResourceNotFoundException e){
+            return ResponseEntity.status(NOT_FOUND).body(new ApiResponse("Error: " + e.getMessage(), null));
+        }
+    }
 
-
+    @PutMapping("/category/{id}/update")
+    public ResponseEntity<ApiResponse> updateCategory(@PathVariable Long id, @RequestBody Category category){
+        try{
+            Category newCategory = categoryService.updateCategory(category, id);
+            return ResponseEntity.ok().body(new ApiResponse("Found", newCategory));
+        } catch (ResourceNotFoundException e){
+            return ResponseEntity.status(NOT_FOUND).body(new ApiResponse("Error: " + e.getMessage(), null));
+        }
+    }
 
 
 }
