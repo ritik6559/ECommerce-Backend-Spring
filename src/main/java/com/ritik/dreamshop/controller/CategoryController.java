@@ -15,7 +15,7 @@ import java.util.List;
 import static org.springframework.http.HttpStatus.*;
 
 @RequiredArgsConstructor
-@RestController("${api.prefix}/category")
+@RestController("${api.prefix}/categories")
 public class CategoryController {
 
     private final ICategoryService categoryService;
@@ -50,7 +50,7 @@ public class CategoryController {
         }
     }
 
-    @GetMapping("/{name}/category")
+    @GetMapping("/category/{name}/category")
     public ResponseEntity<ApiResponse> getCategoryByName(@PathVariable String name){
         try{
             Category category = categoryService.getCategoryByName(name);
