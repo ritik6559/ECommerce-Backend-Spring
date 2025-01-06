@@ -15,7 +15,8 @@ import java.util.List;
 import static org.springframework.http.HttpStatus.*;
 
 @RequiredArgsConstructor
-@RestController("${api.prefix}/categories")
+@RestController
+@RequestMapping("${api.prefix}/categories")
 public class CategoryController {
 
     private final ICategoryService categoryService;
@@ -26,7 +27,7 @@ public class CategoryController {
             List<Category> categories = categoryService.getAllCategories();
             return ResponseEntity.ok(new ApiResponse("Found", categories));
         } catch (Exception e){
-            return ResponseEntity.status(INTERNAL_SERVER_ERROR).body(new ApiResponse("Error: " + e.getMessage(), null));
+            return ResponseEntity.status(INTERNAL_SERVER_ERROR).body(new ApiResponse("Error: " + e.getMessage(), INTERNAL_SERVER_ERROR));
         }
     }
 
