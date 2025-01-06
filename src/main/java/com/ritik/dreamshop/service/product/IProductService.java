@@ -1,5 +1,6 @@
 package com.ritik.dreamshop.service.product;
 
+import com.ritik.dreamshop.dto.ProductDto;
 import com.ritik.dreamshop.model.Product;
 import com.ritik.dreamshop.request.AddProductRequest;
 import com.ritik.dreamshop.request.UpdateProductRequest;
@@ -14,11 +15,11 @@ public interface IProductService {
     void deleteProductById(Long id);
     List<Product> getAllProducts();
     List<Product> getProductsByCategory(String category);
-    List<Product> getProductByBrand(String brand);
-    List<Product> getProductByCategoryAndBrand(String category, String brand);
-    List<Product> getProductByName(String name);
-    List<Product> getProductByBrandAndName(String brand, String name);
+    List<Product> getProductsByBrand(String brand);
+    List<Product> getProductsByCategoryAndBrand(String category, String brand);
+    List<Product> getProductsByName(String name);
+    List<Product> getProductsByBrandAndName(String brand, String name);
     Long countProductsByBrandAndName(String brand, String name);
-
-
+    List<ProductDto> getConvertedProducts(List<Product> products);
+    ProductDto convertToDto(Product product);
 }

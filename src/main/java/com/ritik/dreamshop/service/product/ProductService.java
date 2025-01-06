@@ -1,13 +1,18 @@
 package com.ritik.dreamshop.service.product;
 
+import com.ritik.dreamshop.dto.ImageDto;
+import com.ritik.dreamshop.dto.ProductDto;
 import com.ritik.dreamshop.exception.ResourceNotFoundException;
 import com.ritik.dreamshop.model.Category;
+import com.ritik.dreamshop.model.Image;
 import com.ritik.dreamshop.model.Product;
 import com.ritik.dreamshop.repository.category.CategoryRepository;
+import com.ritik.dreamshop.repository.image.ImageRepository;
 import com.ritik.dreamshop.repository.product.ProductRepository;
 import com.ritik.dreamshop.request.AddProductRequest;
 import com.ritik.dreamshop.request.UpdateProductRequest;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,6 +24,8 @@ public class ProductService implements IProductService {
 
     private final CategoryRepository categoryRepository;
     private final ProductRepository productRepository;
+    private final ModelMapper modelMapper;
+    private final ImageRepository imageRepository;
 
 
 
@@ -93,22 +100,22 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public List<Product> getProductByBrand(String brand) {
+    public List<Product> getProductsByBrand(String brand) {
         return productRepository.findByBrand(brand);
     }
 
     @Override
-    public List<Product> getProductByCategoryAndBrand(String category, String brand) {
+    public List<Product> getProductsByCategoryAndBrand(String category, String brand) {
         return productRepository.findByCategoryNameAndBrand(category, brand);
     }
 
     @Override
-    public List<Product> getProductByName(String name) {
+    public List<Product> getProductsByName(String name) {
         return productRepository.findByName(name);
     }
 
     @Override
-    public List<Product> getProductByBrandAndName(String brand, String name) {
+    public List<Product> getProductsByBrandAndName(String brand, String name) {
         return productRepository.findByBrandAndName(brand, name);
     }
 
@@ -116,4 +123,21 @@ public class ProductService implements IProductService {
     public Long countProductsByBrandAndName(String brand, String name) {
         return productRepository.countByBrandAndName(brand, name);
     }
+
+    @Override
+    public List<ProductDto> getConvertedProducts(List<Product> products){
+        return products.stream().map(this::convertToDto).toList();
+    }
+
+    @Override
+    public ProductDto convertToDto(Product product){
+        ProductDto productDto = modelMapper.map(product, ProductDto.class);
+        List<Image> images = imageRepository.findByProductId(product.getId());
+        List<ImageDto> imageDtos = images.stream()
+                .map(image -> modelMapper.map(image, ImageDto.class))
+                .toList();
+        productDto.setImages(imageDtos);
+        return productDto;
+    }
+
 }
