@@ -1,6 +1,6 @@
 package com.ritik.dreamshop.repository.category;
 
-import com.ritik.dreamshop.model.Category;
+import com.ritik.dreamshop.model.category.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

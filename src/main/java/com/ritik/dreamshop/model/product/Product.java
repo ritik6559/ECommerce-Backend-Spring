@@ -1,5 +1,7 @@
-package com.ritik.dreamshop.model;
+package com.ritik.dreamshop.model.product;
 
+import com.ritik.dreamshop.model.category.Category;
+import com.ritik.dreamshop.model.image.Image;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

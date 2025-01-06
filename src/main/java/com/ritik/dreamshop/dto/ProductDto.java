@@ -1,6 +1,6 @@
 package com.ritik.dreamshop.dto;
 
-import com.ritik.dreamshop.model.Category;
+import com.ritik.dreamshop.model.category.Category;
 import lombok.Data;
 
 import java.math.BigDecimal;

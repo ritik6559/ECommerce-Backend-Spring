@@ -3,15 +3,13 @@ package com.ritik.dreamshop.controller;
 
 import com.ritik.dreamshop.dto.ImageDto;
 import com.ritik.dreamshop.exception.ResourceNotFoundException;
-import com.ritik.dreamshop.model.Image;
-import com.ritik.dreamshop.model.Product;
+import com.ritik.dreamshop.model.image.Image;
 import com.ritik.dreamshop.response.ApiResponse;
 import com.ritik.dreamshop.service.image.IImageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

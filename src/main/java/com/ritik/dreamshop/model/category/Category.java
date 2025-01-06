@@ -1,6 +1,7 @@
-package com.ritik.dreamshop.model;
+package com.ritik.dreamshop.model.category;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.ritik.dreamshop.model.product.Product;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

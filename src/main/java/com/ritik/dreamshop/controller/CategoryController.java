@@ -3,7 +3,7 @@ package com.ritik.dreamshop.controller;
 
 import com.ritik.dreamshop.exception.AlreadyExistsException;
 import com.ritik.dreamshop.exception.ResourceNotFoundException;
-import com.ritik.dreamshop.model.Category;
+import com.ritik.dreamshop.model.category.Category;
 import com.ritik.dreamshop.response.ApiResponse;
 import com.ritik.dreamshop.service.category.ICategoryService;
 import lombok.RequiredArgsConstructor;

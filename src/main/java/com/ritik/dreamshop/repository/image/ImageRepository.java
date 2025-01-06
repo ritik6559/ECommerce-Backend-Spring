@@ -1,6 +1,6 @@
 package com.ritik.dreamshop.repository.image;
 
-import com.ritik.dreamshop.model.Image;
+import com.ritik.dreamshop.model.image.Image;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

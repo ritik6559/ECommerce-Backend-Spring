@@ -1,12 +1,7 @@
 package com.ritik.dreamshop.request;
 
-import com.ritik.dreamshop.model.Category;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import com.ritik.dreamshop.model.category.Category;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.math.BigDecimal;
 

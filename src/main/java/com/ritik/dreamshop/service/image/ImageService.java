@@ -2,8 +2,8 @@ package com.ritik.dreamshop.service.image;
 
 import com.ritik.dreamshop.dto.ImageDto;
 import com.ritik.dreamshop.exception.ResourceNotFoundException;
-import com.ritik.dreamshop.model.Image;
-import com.ritik.dreamshop.model.Product;
+import com.ritik.dreamshop.model.image.Image;
+import com.ritik.dreamshop.model.product.Product;
 import com.ritik.dreamshop.repository.image.ImageRepository;
 import com.ritik.dreamshop.service.product.IProductService;
 import lombok.RequiredArgsConstructor;

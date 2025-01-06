@@ -4,7 +4,7 @@ package com.ritik.dreamshop.controller;
 import com.ritik.dreamshop.dto.ProductDto;
 import com.ritik.dreamshop.exception.AlreadyExistsException;
 import com.ritik.dreamshop.exception.ResourceNotFoundException;
-import com.ritik.dreamshop.model.Product;
+import com.ritik.dreamshop.model.product.Product;
 import com.ritik.dreamshop.request.AddProductRequest;
 import com.ritik.dreamshop.request.UpdateProductRequest;
 import com.ritik.dreamshop.response.ApiResponse;

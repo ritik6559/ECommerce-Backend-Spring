@@ -1,6 +1,6 @@
 package com.ritik.dreamshop.service.category;
 
-import com.ritik.dreamshop.model.Category;
+import com.ritik.dreamshop.model.category.Category;
 
 import java.util.List;
 

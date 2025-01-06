@@ -2,7 +2,7 @@ package com.ritik.dreamshop.service.category;
 
 import com.ritik.dreamshop.exception.AlreadyExistsException;
 import com.ritik.dreamshop.exception.ResourceNotFoundException;
-import com.ritik.dreamshop.model.Category;
+import com.ritik.dreamshop.model.category.Category;
 import com.ritik.dreamshop.repository.category.CategoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

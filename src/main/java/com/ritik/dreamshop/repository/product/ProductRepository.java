@@ -1,6 +1,6 @@
 package com.ritik.dreamshop.repository.product;
 
-import com.ritik.dreamshop.model.Product;
+import com.ritik.dreamshop.model.product.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
