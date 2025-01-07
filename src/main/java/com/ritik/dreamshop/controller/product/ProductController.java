@@ -1,4 +1,4 @@
-package com.ritik.dreamshop.controller;
+package com.ritik.dreamshop.controller.product;
 
 
 import com.ritik.dreamshop.dto.ProductDto;

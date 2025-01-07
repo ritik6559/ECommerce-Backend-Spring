@@ -1,4 +1,4 @@
-package com.ritik.dreamshop.controller;
+package com.ritik.dreamshop.controller.image;
 
 
 import com.ritik.dreamshop.dto.ImageDto;

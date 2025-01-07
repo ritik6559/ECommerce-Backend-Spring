@@ -1,4 +1,4 @@
-package com.ritik.dreamshop.controller;
+package com.ritik.dreamshop.controller.category;
 
 
 import com.ritik.dreamshop.exception.AlreadyExistsException;
