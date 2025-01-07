@@ -1,5 +1,6 @@
 package com.ritik.dreamshop.model.cart;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ritik.dreamshop.model.product.Product;
 import jakarta.persistence.*;
 import lombok.*;
@@ -23,6 +24,7 @@ public class CartItem {
     @JoinColumn(name = "product_id")
     private Product product;
 
+    @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "cart_id")
     private Cart cart;

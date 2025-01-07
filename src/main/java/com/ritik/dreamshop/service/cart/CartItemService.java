@@ -7,6 +7,7 @@ import com.ritik.dreamshop.model.product.Product;
 import com.ritik.dreamshop.repository.cart.CartItemRepository;
 import com.ritik.dreamshop.repository.cart.CartRepository;
 import com.ritik.dreamshop.service.product.IProductService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -30,12 +31,13 @@ public class CartItemService implements ICartItemService{
                 .stream()
                 .filter(item -> item.getProduct().getId().equals(productId))
                 .findFirst().orElse(new CartItem());
-        if(cartItem.getId() == null){
+        if (cartItem.getId() == null) {
             cartItem.setCart(cart);
             cartItem.setProduct(product);
             cartItem.setQuantity(quantity);
             cartItem.setUnitPrice(product.getPrice());
-        } else {
+        }
+        else {
             cartItem.setQuantity(cartItem.getQuantity() + quantity);
         }
         cartItem.setTotalPrice();
