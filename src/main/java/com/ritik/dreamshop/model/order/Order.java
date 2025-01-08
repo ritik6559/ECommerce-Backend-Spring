@@ -1,6 +1,7 @@
 package com.ritik.dreamshop.model.order;
 
 import com.ritik.dreamshop.enums.OrderStatus;
+import com.ritik.dreamshop.model.user.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,9 +24,14 @@ public class Order {
     private Long id;
     private LocalDate orderDate;
     private BigDecimal totalAmount;
+
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;
+
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<OrderItem> orderItems = new HashSet<>();
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 }

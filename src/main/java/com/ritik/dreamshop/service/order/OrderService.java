@@ -8,11 +8,13 @@ import com.ritik.dreamshop.model.order.OrderItem;
 import com.ritik.dreamshop.model.product.Product;
 import com.ritik.dreamshop.repository.order.OrderRepository;
 import com.ritik.dreamshop.repository.product.ProductRepository;
+import com.ritik.dreamshop.service.cart.CartService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.List;
 
 @Service
@@ -21,16 +23,28 @@ public class OrderService implements IOrderService{
 
     private final OrderRepository orderRepository;
     private final ProductRepository productRepository;
+    private final CartService cartService;
 
 
     @Override
     public Order placeOrder(Long userId) {
-        return null;
+        Cart cart = cartService.getCartByUserId(userId);
+
+        Order order = createOrder(cart);
+        List<OrderItem> orderItemList = createOrderItems(order, cart);
+
+        order.setOrderItems(new HashSet<>(orderItemList));
+        order.setTotalAmount(calculateTotalAmount(orderItemList));
+        Order savedOrder = orderRepository.save(order);
+
+        cartService.clearCart(cart.getId());
+
+        return savedOrder;
     }
 
     private Order createOrder(Cart cart){
         Order order = new Order();
-        // set the user
+        order.setUser(cart.getUser());
         order.setOrderStatus(OrderStatus.PENDING);
         order.setOrderDate(LocalDate.now());
         return order;
@@ -55,11 +69,17 @@ public class OrderService implements IOrderService{
         }).toList();
     }
 
-    private BigDecimal calculatesTotalAmount(List<OrderItem> ordersItemList){
+    private BigDecimal calculateTotalAmount(List<OrderItem> ordersItemList){
         return ordersItemList
                 .stream()
                 .map(item -> item.getPrice().multiply(new BigDecimal(item.getQuantity())))
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
 
     }
+
+    @Override
+    public List<Order> getUserOrders(Long userId){
+        return orderRepository.findByUserId(userId);
+    }
+
 }
