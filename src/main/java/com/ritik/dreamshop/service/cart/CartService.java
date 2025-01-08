@@ -5,9 +5,11 @@ import com.ritik.dreamshop.exception.ResourceNotFoundException;
 import com.ritik.dreamshop.model.cart.Cart;
 import com.ritik.dreamshop.repository.cart.CartItemRepository;
 import com.ritik.dreamshop.repository.cart.CartRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.beans.Transient;
 import java.math.BigDecimal;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -27,6 +29,7 @@ public class CartService implements ICartService {
         return cartRepository.save(cart);
     }
 
+    @Transactional
     @Override
     public void clearCart(Long id) {
         Cart cart = getCart(id);
