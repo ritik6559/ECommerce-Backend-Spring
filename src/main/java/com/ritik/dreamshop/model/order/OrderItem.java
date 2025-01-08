@@ -12,7 +12,6 @@ import java.math.BigDecimal;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
 @Entity
 public class OrderItem {
@@ -31,4 +30,11 @@ public class OrderItem {
     private int quantity;
     private BigDecimal price;
 
+
+    public OrderItem(Order order, Product product, int quantity, BigDecimal price) {
+        this.order = order;
+        this.product = product;
+        this.quantity = quantity;
+        this.price = price;
+    }
 }
