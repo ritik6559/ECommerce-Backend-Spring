@@ -1,12 +1,13 @@
-package com.ritik.dreamshop.request;
+package com.ritik.dreamshop.request.product;
 
 import com.ritik.dreamshop.model.category.Category;
 import lombok.Data;
 
 import java.math.BigDecimal;
 
+
 @Data
-public class UpdateProductRequest {
+public class AddProductRequest {
 
     private Long id;
     private String name;

@@ -2,8 +2,8 @@ package com.ritik.dreamshop.service.product;
 
 import com.ritik.dreamshop.dto.ProductDto;
 import com.ritik.dreamshop.model.product.Product;
-import com.ritik.dreamshop.request.AddProductRequest;
-import com.ritik.dreamshop.request.UpdateProductRequest;
+import com.ritik.dreamshop.request.product.AddProductRequest;
+import com.ritik.dreamshop.request.product.UpdateProductRequest;
 
 import java.util.List;
 
