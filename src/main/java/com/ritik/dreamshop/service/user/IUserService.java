@@ -1,5 +1,6 @@
 package com.ritik.dreamshop.service.user;
 
+import com.ritik.dreamshop.dto.user.UserDto;
 import com.ritik.dreamshop.model.user.User;
 import com.ritik.dreamshop.request.user.CreateUserRequest;
 import com.ritik.dreamshop.request.user.UpdateUserRequest;
@@ -11,4 +12,5 @@ public interface IUserService {
     User updateUser(UpdateUserRequest request, Long userId);
     void deleteUser(Long userId);
 
+    UserDto convertToDto(User user);
 }

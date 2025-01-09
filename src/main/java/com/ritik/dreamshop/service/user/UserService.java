@@ -1,5 +1,6 @@
 package com.ritik.dreamshop.service.user;
 
+import com.ritik.dreamshop.dto.user.UserDto;
 import com.ritik.dreamshop.exception.AlreadyExistsException;
 import com.ritik.dreamshop.exception.ResourceNotFoundException;
 import com.ritik.dreamshop.model.user.User;
@@ -7,6 +8,7 @@ import com.ritik.dreamshop.repository.user.UserRepository;
 import com.ritik.dreamshop.request.user.CreateUserRequest;
 import com.ritik.dreamshop.request.user.UpdateUserRequest;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -16,6 +18,7 @@ import java.util.Optional;
 public class UserService implements IUserService {
 
     private final UserRepository userRepository;
+    private final ModelMapper modelMapper;
 
     @Override
     public User getUserById(Long userId) {
@@ -52,5 +55,10 @@ public class UserService implements IUserService {
         userRepository.findById(userId).ifPresentOrElse(userRepository :: delete, () -> {
             throw new ResourceNotFoundException("User not found");
         });
+    }
+
+    @Override
+    public UserDto convertToDto(User user){
+        return modelMapper.map(user, UserDto.class);
     }
 }
