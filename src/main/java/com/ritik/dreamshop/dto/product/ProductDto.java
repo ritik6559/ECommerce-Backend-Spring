@@ -1,5 +1,6 @@
-package com.ritik.dreamshop.dto;
+package com.ritik.dreamshop.dto.product;
 
+import com.ritik.dreamshop.dto.image.ImageDto;
 import com.ritik.dreamshop.model.category.Category;
 import lombok.Data;
 

@@ -1,6 +1,6 @@
 package com.ritik.dreamshop.service.image;
 
-import com.ritik.dreamshop.dto.ImageDto;
+import com.ritik.dreamshop.dto.image.ImageDto;
 import com.ritik.dreamshop.model.image.Image;
 import org.springframework.web.multipart.MultipartFile;
 

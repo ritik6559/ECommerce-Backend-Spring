@@ -1,5 +1,6 @@
 package com.ritik.dreamshop.service.order;
 
+import com.ritik.dreamshop.dto.order.OrderDto;
 import com.ritik.dreamshop.enums.OrderStatus;
 import com.ritik.dreamshop.exception.ResourceNotFoundException;
 import com.ritik.dreamshop.model.cart.Cart;
@@ -10,6 +11,7 @@ import com.ritik.dreamshop.repository.order.OrderRepository;
 import com.ritik.dreamshop.repository.product.ProductRepository;
 import com.ritik.dreamshop.service.cart.CartService;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -24,6 +26,7 @@ public class OrderService implements IOrderService{
     private final OrderRepository orderRepository;
     private final ProductRepository productRepository;
     private final CartService cartService;
+    private final ModelMapper modelMapper;
 
 
     @Override
@@ -52,9 +55,10 @@ public class OrderService implements IOrderService{
     }
 
     @Override
-    public Order getOrder(Long orderId) {
+    public OrderDto getOrder(Long orderId) {
         return orderRepository
                 .findById(orderId)
+                .map(this::convertToDto)
                 .orElseThrow(() -> new ResourceNotFoundException("Order not found"));
     }
 
@@ -78,8 +82,13 @@ public class OrderService implements IOrderService{
     }
 
     @Override
-    public List<Order> getUserOrders(Long userId){
-        return orderRepository.findByUserId(userId);
+    public List<OrderDto> getUserOrders(Long userId){
+        List<Order> orders = orderRepository.findByUserId(userId);
+        return orders.stream().map(this :: convertToDto).toList();
+    }
+
+    private OrderDto convertToDto(Order order){
+        return modelMapper.map(order, OrderDto.class);
     }
 
 }

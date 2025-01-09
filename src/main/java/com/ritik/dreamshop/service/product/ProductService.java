@@ -1,7 +1,7 @@
 package com.ritik.dreamshop.service.product;
 
-import com.ritik.dreamshop.dto.ImageDto;
-import com.ritik.dreamshop.dto.ProductDto;
+import com.ritik.dreamshop.dto.image.ImageDto;
+import com.ritik.dreamshop.dto.product.ProductDto;
 import com.ritik.dreamshop.exception.ResourceNotFoundException;
 import com.ritik.dreamshop.model.category.Category;
 import com.ritik.dreamshop.model.image.Image;

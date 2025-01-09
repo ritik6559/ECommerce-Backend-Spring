@@ -1,4 +1,4 @@
-package com.ritik.dreamshop.dto;
+package com.ritik.dreamshop.dto.image;
 
 import lombok.Data;
 
