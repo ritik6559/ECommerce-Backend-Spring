@@ -1,6 +1,7 @@
 package com.ritik.dreamshop.service.cart;
 
 import com.ritik.dreamshop.model.cart.Cart;
+import com.ritik.dreamshop.model.user.User;
 
 import java.math.BigDecimal;
 
@@ -10,7 +11,7 @@ public interface ICartService {
     void clearCart(Long id);
     BigDecimal getTotalPrice(Long id);
 
-    Long initializeNewCart();
+    Cart initializeNewCart(User user);
 
     Cart getCartByUserId(Long userId);
 }
