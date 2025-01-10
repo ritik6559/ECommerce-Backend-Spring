@@ -2,6 +2,7 @@ package com.ritik.dreamshop.service.product;
 
 import com.ritik.dreamshop.dto.image.ImageDto;
 import com.ritik.dreamshop.dto.product.ProductDto;
+import com.ritik.dreamshop.exception.AlreadyExistsException;
 import com.ritik.dreamshop.exception.ResourceNotFoundException;
 import com.ritik.dreamshop.model.category.Category;
 import com.ritik.dreamshop.model.image.Image;
@@ -31,6 +32,9 @@ public class ProductService implements IProductService {
 
     @Override
     public Product addProduct(AddProductRequest request) {
+        if (productExists(request.getName(), request.getBrand())){
+            throw new AlreadyExistsException("Product already exists");
+        }
         Category category = Optional.ofNullable(categoryRepository.findByName(request.getCategory().getName()))
                 .orElseGet(() -> {
                     Category newCategory = new Category(request.getCategory().getName());
@@ -38,6 +42,10 @@ public class ProductService implements IProductService {
                 });
         request.setCategory(category);
         return productRepository.save(createProduct(request, category));
+    }
+
+    private boolean productExists(String name, String brand){
+        return productRepository.existsByNameAndBrand(name, brand);
     }
 
     private Product createProduct(AddProductRequest request, Category category){
