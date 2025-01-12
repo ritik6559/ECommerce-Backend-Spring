@@ -9,9 +9,11 @@ import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Set;
 
+@Transactional
 @Component
 @RequiredArgsConstructor
 public class DataInitializer implements ApplicationListener<ApplicationReadyEvent> {
@@ -22,9 +24,9 @@ public class DataInitializer implements ApplicationListener<ApplicationReadyEven
     @Override
     public void onApplicationEvent(ApplicationReadyEvent event) {
         Set<String> defaultRoles = Set.of("ROLE_ADMIN", "ROLE_USER");
-        // createDefaultRoleIfNotExits(defaultRoles);
+        createDefaultRoleIfNotExits(defaultRoles);
         createDefaultUserIfNotExists();
-        // createDefaultAdminIfNotExists();
+        createDefaultAdminIfNotExists();
 
     }
 
