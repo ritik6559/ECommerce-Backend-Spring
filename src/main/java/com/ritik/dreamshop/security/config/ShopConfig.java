@@ -1,7 +1,7 @@
 package com.ritik.dreamshop.security.config;
 
 import com.ritik.dreamshop.security.jwt.AuthTokenFilter;
-import com.ritik.dreamshop.security.jwt.JwtAuthEntryPoints;
+import com.ritik.dreamshop.security.jwt.JwtAuthEntryPoint;
 import com.ritik.dreamshop.security.user.ShopUserDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -24,10 +25,11 @@ import java.util.List;
 @Configuration
 @RequiredArgsConstructor
 @EnableWebSecurity
+@EnableMethodSecurity(prePostEnabled = true)
 public class ShopConfig {
 
     private final ShopUserDetailsService userDetailsService;
-    private final JwtAuthEntryPoints jwtAuthEntryPoints;
+    private final JwtAuthEntryPoint jwtAuthEntryPoint;
 
     private static final List<String> SECURED_URLS = List.of("/api/v1/carts/**","api/v1/cartItems/**" );
 
@@ -64,7 +66,7 @@ public class ShopConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws  Exception {
 
         http.csrf(AbstractHttpConfigurer::disable)
-                .exceptionHandling(exception -> exception.authenticationEntryPoint(jwtAuthEntryPoints))
+                .exceptionHandling(exception -> exception.authenticationEntryPoint(jwtAuthEntryPoint))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth.requestMatchers(SECURED_URLS.toArray(String[] :: new)).authenticated()
                         .anyRequest().permitAll());
