@@ -19,7 +19,7 @@ An e-commerce application built using **Spring Boot**, **Spring Security**, and 
 1. Clone the repository:
    ```sh
    git clone https://github.com/ritik6559/ECommerce-Backend-Spring.git
-   cd your-repo
+   cd ECommerce-Backend-Spring
    ```
 2. Configure **application.properties** with your MySQL credentials.
 3. Run the application:
@@ -36,4 +36,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 For any inquiries, reach out to:
 - **Ritik Joshi**
 - **ritikjoshi741@gmail.com**
-- **GitHub**: [yourusername](https://github.com/ritik6559)
+- **GitHub**: [ritik6559](https://github.com/ritik6559)
